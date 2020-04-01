@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <title>COVID 19 | Live Stats</title>
+</head>
+
+<body>
+
+
+  <div class="container-sm">
+
+    <center>
+      <div class="alert alert-warning" role="alert">
+        <p id="demo"></p>
+      </div>
+
+
+      <div class="alert alert-danger" role="alert">
+        Local Corona Details
+      </div>
+
+
+      <center class="row">
+
+        <div class="col-sm-6">
+          <div class="card" style="width: 18rem;">
+            <i style="color: green" class="fa fa-medkit fa-5x card-img-top" aria-hidden="true"></i>
+            <div class="card-body">
+              <h5 class="card-title">Local Recovered</h5>
+              <p id="local_recovered" class="card-text"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="card" style="width: 18rem;">
+            <i style="color: blue" class="fa fa-male fa-5x card-img-top" aria-hidden="true"></i>
+            <div class="card-body">
+              <h5 class="card-title">Local Deaths</h5>
+              <p id="local_deaths" class="card-text"></p>
+            </div>
+          </div>
+          <br>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="card" style="width: 18rem;">
+            <i style="color: red" class="fa fa-bug fa-5x card-img-top" aria-hidden="true"></i>
+            <div class="card-body">
+              <h5 class="card-title">Total Infected</h5>
+              <p id="local_total_cases" class="card-text"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="card" style="width: 18rem;">
+            <i style="color: yellow" class="fa fa-calendar-plus-o fa-5x card-img-top" aria-hidden="true"></i>
+            <div class="card-body">
+              <h5 class="card-title">Local Active Cases</h5>
+              <p id="local_active_cases" class="card-text"></p>
+            </div>
+          </div>
+          <br>
+        </div>
+
+      </center>
+      <!-- Starting Global Dashboard-->
+
+      <div class="alert alert-success" role="alert" align="center">
+        Global Reports
+      </div>
+
+      <center class="row">
+
+        <div class="col-sm-6">
+          <div class="card" style="width: 18rem;">
+            <i style="color: yellow" class="fa fa-calendar-plus-o fa-5x card-img-top" aria-hidden="true"></i>
+            <div class="card-body">
+              <h5 class="card-title">Global Active Cases</h5>
+              <p id="global_total_cases" class="card-text"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2-->
+
+
+        <!-- Card 3-->
+
+
+        <!-- Card 4-->
+
+      </center>
+
+    </center>
+  </div>
+
+  <script>
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+        document.getElementById("demo").innerHTML = "Latest Update : " + myObj.data.update_date_time;
+        document.getElementById("local_recovered").innerHTML = myObj.data.local_recovered;
+        document.getElementById("local_total_cases").innerHTML = myObj.data.local_total_cases;
+        document.getElementById("local_deaths").innerHTML = myObj.data.local_deaths;
+        document.getElementById("local_active_cases").innerHTML = myObj.data.local_active_cases;
+
+        document.getElementById("global_total_cases").innerHTML = myObj.data.global_total_cases;
+      }
+    };
+    xmlhttp.open("GET", "https://hpb.health.gov.lk/api/get-current-statistical", true);
+    xmlhttp.send();
+  </script>
+</body>
+
+</html>
